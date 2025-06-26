@@ -1,0 +1,295 @@
+// Component-specific styles that are shared across the app
+
+// Glass Card Component
+.glass-card {
+  @include card;
+  @include card-hover;
+}
+
+// Weather Icon Component
+.weather-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  
+  &.large {
+    width: 96px;
+    height: 96px;
+  }
+  
+  &.small {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+// Status Indicators
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &.success {
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(40, 167, 69, 0.2);
+  }
+  
+  &.warning {
+    background: rgba(255, 193, 7, 0.1);
+    color: var(--warning-color);
+    border: 1px solid rgba(255, 193, 7, 0.2);
+  }
+  
+  &.error {
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--error-color);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+  }
+  
+  &.info {
+    background: rgba(74, 144, 226, 0.1);
+    color: var(--info-color);
+    border: 1px solid rgba(74, 144, 226, 0.2);
+  }
+}
+
+// Badge Component
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--primary-color);
+  color: white;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  
+  &.secondary {
+    background: var(--secondary-color);
+  }
+  
+  &.accent {
+    background: var(--accent-color);
+  }
+}
+
+// Tooltip Component
+.tooltip {
+  position: relative;
+  
+  &:hover .tooltip-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-8px);
+  }
+  
+  .tooltip-content {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-size: var(--font-size-xs);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+    z-index: var(--z-tooltip);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: rgba(0, 0, 0, 0.9);
+    }
+  }
+}
+
+// Loading States
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  @include flex-center;
+  z-index: 10;
+  
+  .loading-content {
+    @include flex-column;
+    align-items: center;
+    gap: var(--spacing-md);
+    color: var(--text-primary);
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 25%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: var(--radius-sm);
+  
+  &.text {
+    height: 1em;
+    margin-bottom: 0.5em;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &.title {
+    height: 1.5em;
+    margin-bottom: 1em;
+  }
+  
+  &.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  &.card {
+    height: 200px;
+    width: 100%;
+  }
+}
+
+// Error States
+.error-state {
+  @include flex-column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  color: var(--text-secondary);
+  
+  .error-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--error-color);
+  }
+  
+  .error-title {
+    @include heading-3;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .error-message {
+    @include body-text;
+    max-width: 400px;
+  }
+  
+  .error-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+}
+
+// Empty States
+.empty-state {
+  @include flex-column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  color: var(--text-tertiary);
+  
+  .empty-icon {
+    width: 80px;
+    height: 80px;
+    opacity: 0.5;
+  }
+  
+  .empty-title {
+    @include heading-3;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .empty-message {
+    @include body-text;
+    max-width: 400px;
+    color: var(--text-tertiary);
+  }
+}
+
+// Responsive Grid
+.grid {
+  display: grid;
+  gap: var(--spacing-lg);
+  
+  &.grid-1 { grid-template-columns: 1fr; }
+  &.grid-2 { grid-template-columns: repeat(2, 1fr); }
+  &.grid-3 { grid-template-columns: repeat(3, 1fr); }
+  &.grid-4 { grid-template-columns: repeat(4, 1fr); }
+  
+  &.grid-auto {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  @include mobile {
+    &.grid-2,
+    &.grid-3,
+    &.grid-4 {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @include tablet {
+    &.grid-3,
+    &.grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+// Flex Layouts
+.flex {
+  display: flex;
+  
+  &.flex-wrap { flex-wrap: wrap; }
+  &.flex-column { flex-direction: column; }
+  &.flex-center { @include flex-center; }
+  &.flex-between { @include flex-between; }
+  &.flex-start { justify-content: flex-start; }
+  &.flex-end { justify-content: flex-end; }
+  &.items-start { align-items: flex-start; }
+  &.items-end { align-items: flex-end; }
+  &.items-center { align-items: center; }
+  &.items-stretch { align-items: stretch; }
+  
+  &.gap-1 { gap: var(--spacing-xs); }
+  &.gap-2 { gap: var(--spacing-sm); }
+  &.gap-3 { gap: var(--spacing-md); }
+  &.gap-4 { gap: var(--spacing-lg); }
+  &.gap-5 { gap: var(--spacing-xl); }
+}

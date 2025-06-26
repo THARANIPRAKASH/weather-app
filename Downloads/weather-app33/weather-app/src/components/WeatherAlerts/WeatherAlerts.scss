@@ -1,0 +1,208 @@
+.weather-alerts {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  .alerts-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+
+    .header-icon {
+      color: var(--primary-color);
+    }
+
+    h2 {
+      color: var(--text-primary);
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+
+  .alerts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .alert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border-left: 4px solid;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateX(4px);
+      }
+
+      .alert-icon {
+        flex-shrink: 0;
+        padding: 0.5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .alert-content {
+        flex: 1;
+
+        .alert-title {
+          margin: 0 0 0.5rem 0;
+          font-size: 1.1rem;
+          font-weight: 600;
+        }
+
+        .alert-message {
+          margin: 0;
+          font-size: 0.9rem;
+          line-height: 1.5;
+        }
+      }
+
+      &.alert-error {
+        background: rgba(255, 107, 107, 0.1);
+        border-left-color: #ff6b6b;
+
+        .alert-icon {
+          background: rgba(255, 107, 107, 0.2);
+          color: #ff6b6b;
+        }
+
+        .alert-title {
+          color: #ff6b6b;
+        }
+
+        .alert-message {
+          color: var(--text-primary);
+        }
+      }
+
+      &.alert-warning {
+        background: rgba(255, 193, 7, 0.1);
+        border-left-color: #ffc107;
+
+        .alert-icon {
+          background: rgba(255, 193, 7, 0.2);
+          color: #ffc107;
+        }
+
+        .alert-title {
+          color: #ffc107;
+        }
+
+        .alert-message {
+          color: var(--text-primary);
+        }
+      }
+
+      &.alert-success {
+        background: rgba(40, 167, 69, 0.1);
+        border-left-color: #28a745;
+
+        .alert-icon {
+          background: rgba(40, 167, 69, 0.2);
+          color: #28a745;
+        }
+
+        .alert-title {
+          color: #28a745;
+        }
+
+        .alert-message {
+          color: var(--text-primary);
+        }
+      }
+
+      &.alert-info {
+        background: rgba(74, 144, 226, 0.1);
+        border-left-color: var(--primary-color);
+
+        .alert-icon {
+          background: rgba(74, 144, 226, 0.2);
+          color: var(--primary-color);
+        }
+
+        .alert-title {
+          color: var(--primary-color);
+        }
+
+        .alert-message {
+          color: var(--text-primary);
+        }
+      }
+    }
+  }
+
+  .weather-tips {
+    h3 {
+      color: var(--text-primary);
+      margin: 0 0 1rem 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+
+      .tip-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+
+        .tip-emoji {
+          font-size: 1.5rem;
+          flex-shrink: 0;
+        }
+
+        p {
+          margin: 0;
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+
+    .alerts-list .alert-item {
+      padding: 1rem;
+      
+      .alert-content {
+        .alert-title {
+          font-size: 1rem;
+        }
+        
+        .alert-message {
+          font-size: 0.85rem;
+        }
+      }
+    }
+
+    .weather-tips .tips-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
