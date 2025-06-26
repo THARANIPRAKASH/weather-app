@@ -1,0 +1,532 @@
+.weather-radar {
+  margin-top: 80px;
+  padding: 2rem;
+  min-height: calc(100vh - 80px);
+
+  .radar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .radar-header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 2rem;
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .header-info {
+        h1 {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          color: var(--text-primary);
+          margin: 0 0 0.5rem 0;
+          font-size: 2rem;
+          font-weight: 700;
+        }
+
+        p {
+          color: var(--text-secondary);
+          margin: 0;
+          font-size: 1.1rem;
+        }
+      }
+
+      .location-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-secondary);
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  .radar-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .radar-controls {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      height: fit-content;
+
+      @media (max-width: 1024px) {
+        order: 2;
+      }
+
+      .control-section {
+        margin-bottom: 2rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        h3 {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: var(--text-primary);
+          margin: 0 0 1rem 0;
+          font-size: 1rem;
+          font-weight: 600;
+        }
+
+        .layer-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          @media (max-width: 1024px) {
+            flex-direction: row;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+          }
+
+          .layer-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            width: 100%;
+
+            @media (max-width: 1024px) {
+              min-width: 120px;
+              flex-shrink: 0;
+            }
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.1);
+              color: var(--text-primary);
+            }
+
+            &.active {
+              background: rgba(255, 255, 255, 0.1);
+              border-color: var(--layer-color);
+              color: var(--text-primary);
+
+              svg {
+                color: var(--layer-color);
+              }
+            }
+
+            span {
+              font-size: 0.9rem;
+              font-weight: 500;
+            }
+          }
+        }
+
+        .setting-group {
+          margin-bottom: 1rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+          }
+
+          .speed-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+
+            .speed-btn {
+              padding: 0.5rem;
+              background: rgba(255, 255, 255, 0.05);
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 8px;
+              color: var(--text-secondary);
+              cursor: pointer;
+              transition: all 0.3s ease;
+              font-size: 0.85rem;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.1);
+              }
+
+              &.active {
+                background: var(--primary-color);
+                color: white;
+                border-color: var(--primary-color);
+              }
+            }
+          }
+
+          .time-select {
+            width: 100%;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+
+            &:focus {
+              outline: none;
+              border-color: var(--primary-color);
+            }
+
+            option {
+              background: var(--bg-primary);
+              color: var(--text-primary);
+            }
+          }
+        }
+
+        .current-data {
+          .data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .data-label {
+              color: var(--text-secondary);
+              font-size: 0.85rem;
+            }
+
+            .data-value {
+              color: var(--text-primary);
+              font-weight: 600;
+              font-size: 0.85rem;
+            }
+          }
+        }
+      }
+    }
+
+    .radar-map-container {
+      position: relative;
+      height: 600px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+
+      @media (max-width: 1024px) {
+        order: 1;
+        height: 500px;
+      }
+
+      @media (max-width: 768px) {
+        height: 400px;
+      }
+
+      .radar-map {
+        width: 100%;
+        height: 100%;
+
+        .leaflet-container {
+          height: 100%;
+          font-family: inherit;
+        }
+      }
+
+      .radar-overlay {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+
+        .current-time {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 12px;
+          padding: 0.75rem 1rem;
+          color: var(--text-primary);
+          font-weight: 500;
+          font-size: 0.9rem;
+        }
+
+        .layer-info {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 12px;
+          padding: 0.75rem 1rem;
+          color: var(--text-primary);
+          font-weight: 500;
+          font-size: 0.9rem;
+
+          .layer-indicator {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .timeline-controls {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 2rem;
+
+    .playback-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+
+      .control-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--text-primary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: scale(1.05);
+        }
+
+        &.play-btn {
+          width: 60px;
+          height: 60px;
+          background: var(--primary-color);
+          border-color: var(--primary-color);
+
+          &:hover {
+            background: var(--primary-hover);
+          }
+        }
+      }
+    }
+
+    .timeline-slider {
+      position: relative;
+      margin-bottom: 1rem;
+
+      .timeline-input {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        outline: none;
+        cursor: pointer;
+        -webkit-appearance: none;
+
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: var(--primary-color);
+          cursor: pointer;
+          border: 2px solid white;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        &::-moz-range-thumb {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: var(--primary-color);
+          cursor: pointer;
+          border: 2px solid white;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      .timeline-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+      }
+    }
+
+    .frame-info {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+  }
+
+  .radar-features {
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background: rgba(74, 144, 226, 0.1);
+          color: var(--primary-color);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1.5rem auto;
+        }
+
+        h3 {
+          color: var(--text-primary);
+          margin: 0 0 1rem 0;
+          font-size: 1.25rem;
+          font-weight: 600;
+        }
+
+        p {
+          color: var(--text-secondary);
+          margin: 0;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+// Custom radar marker styles
+:global(.custom-radar-marker) {
+  background: transparent !important;
+  border: none !important;
+}
+
+:global(.radar-marker) {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  
+  .marker-pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: radar-pulse 2s infinite;
+  }
+  
+  .marker-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+}
+
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+// Radar popup styles
+:global(.radar-popup) {
+  padding: 0.5rem;
+  text-align: center;
+
+  h4 {
+    margin: 0 0 0.25rem 0;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+    font-size: 0.85rem;
+  }
+}
